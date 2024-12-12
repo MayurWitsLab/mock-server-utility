@@ -1,7 +1,7 @@
 server:
   type: BAP/BPP
   port: 5500
-  sync_mode: true
+  sync_mode: false
 security:
   verify_sign: false
   lookup_uri: http://localhost:3000/lookup
@@ -26,13 +26,3 @@ path:
       $ref: ./igm/schema/on_issue.yaml
     callbacks:
       $ref: ./igm/on_issue.yaml
-  issue_status:
-    schema:
-      $ref: ./igm/schema/issue_status.yaml
-    callbacks:
-      $ref: ./igm/issue_status.yaml
-  on_issue_status:
-    schema:
-      $ref: ./igm/schema/on_issue_status.yaml
-    callbacks:
-      $ref: ./igm/on_issue_status.yaml

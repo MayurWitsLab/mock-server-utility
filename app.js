@@ -178,6 +178,7 @@ async function traverseSchema(exampleSet, folderRef, type, templateSchema, forms
             removeExtraChar = removeExtraChar.replace(/\//g, '_');
           }
           data.payload = isFormFound ? `./payloads/${removeExtraChar}.yaml`:
+          console.log("🚀 ~ traverseSchema ~ data.payload:", data.payload)
           template_paths[removeExtraChar]
             ? `./template/${template_paths[removeExtraChar]}.yaml`
             : "";

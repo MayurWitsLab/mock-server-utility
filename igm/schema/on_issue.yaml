@@ -542,6 +542,8 @@ properties:
                             - REPLACEMENT
                             - CBIL_CORRECTION
                             - ENACH_CANCEL
+                            - CLOSURE_DETAILS
+                            - NOW-VISIBLE
                 updated_at:
                   description: >-
                     timestamp for the capturing the time an issue status was
@@ -569,6 +571,7 @@ properties:
                     - ITEM
                     - FULFILMENT
                     - TRANSACTION_ID
+                    - TRANSACTION
                     - MESSAGE_ID
                     - PROVIDER
                     - ISSUE

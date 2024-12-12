@@ -9,6 +9,7 @@ const {
 var logger;
 
 const trigger = async(context, config, data,security) => {
+  // console.log(data,"ahsan")
   logger = log.init();
   let uri = (["on"].includes(config.callback.split('_')[0])|| undefined)?context.req_body.context.bap_uri:context.req_body.context.bpp_uri
   let api = config.callback;
@@ -33,6 +34,7 @@ const trigger = async(context, config, data,security) => {
     }
 
     setTimeout(() => {
+      console.log('data', JSON.stringify(data))
       axios
         .post(`${uri+api}`, data,header)
         .then((response) => {

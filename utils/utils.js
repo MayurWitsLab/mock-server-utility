@@ -122,6 +122,8 @@ const dynamicReponse = (context) =>{
           const result = operator.evaluateOperation(context, callback[payloads].condition?.operation)
           if(result)
           {
+            console.log("🚀 ~ dynamicReponse ~ result:", result)
+            console.log('callback[payloads]', callback[payloads])
             return callback[payloads]
           }   
         } 

@@ -1,140 +1,212 @@
-const {Output} = require("./schema.js")
-const crypto = require('crypto');
-const {Input} = require("./schema.js")
+const { Output } = require("./schema.js");
+const crypto = require("crypto");
+const { Input } = require("./schema.js");
 
 class Operator {
-    constructor(context) {
-        this.context = context;
-    }
-    context;
-    input;
-    output;
-    setInput(input) {
-        this.input = input.__process();
-        return this;
-    }
-    __process() {
-        return this;
-    }
-    getOutput() {
-        return this.__process().output.__process();
-    }
-
+  constructor(context) {
+    this.context = context;
+  }
+  context;
+  input;
+  output;
+  setInput(input) {
+    this.input = input.__process();
+    return this;
+  }
+  __process() {
+    return this;
+  }
+  getOutput() {
+    return this.__process().output.__process();
+  }
 }
 
-class GenerateUuidOperation extends Operator{
-    __process() {
-        this.output = new Output(crypto.randomUUID());
-        return this;
-    }
+class GenerateUuidOperation extends Operator {
+  __process() {
+    this.output = new Output(crypto.randomUUID());
+    return this;
+  }
 }
 
-class GenerateTmpstmpOperation extends Operator{
+class GenerateTmpstmpOperation extends Operator {
+  __process() {
+    this.output = new Output(new Date().toISOString());
+    return this;
+  }
+}
 
-    __process() {
-        this.output = new Output(new Date().toISOString());
-        return this;
+class ReadOperation extends Operator {
+  __process() {
+    this.output = new Output(
+      this.getAttribute(this.context, this.input.getValue().split("."))
+    );
+    return this;
+  }
+
+  getAttribute(data, keyArr) {
+    let key = isNaN(keyArr[0]) ? keyArr[0] : parseInt(keyArr[0]);
+    if (data[key] && data[key] != undefined) {
+      if (keyArr.length == 1) {
+        return data[key];
+      }
+      return this.getAttribute(data[key], keyArr.slice(1, keyArr.length));
     }
-} 
+    return undefined;
+  }
+}
 
-class ReadOperation extends Operator{
-    __process() {
-        this.output = new Output(this.getAttribute(this.context, this.input.getValue().split(".")));
-        return this;
+class EqualOperation extends Operator {
+  __process() {
+    console.log("first");
+    let flag = 0;
+    const value = this?.readValue(this?.input?.value[0]?.operation?.input);
+    if (this?.input?.value?.includes(value)) {
+      flag = 1;
     }
+    this.output = new Output(flag);
+    return this;
+  }
 
-    getAttribute(data, keyArr) {
-        let key = isNaN(keyArr[0]) ? keyArr[0] : parseInt(keyArr[0]);
-        if (data[key] && data[key] != undefined) {
-          if (keyArr.length == 1) {
-            return data[key];
-          }
-          return this.getAttribute(data[key], keyArr.slice(1, keyArr.length));
+  readValue(readValue) {
+    console.log("first=====");
+
+    const read = new ReadOperation(this.context);
+    read.input = new Input(this.context, readValue);
+    return read.getOutput().getValue();
+  }
+}
+
+class AndOrOperation extends Operator {
+  __process() {
+    this.output = new Output(this.match(this.input.value));
+    return this;
+  }
+
+  match(input) {
+    if (input.length) {
+      let result = input.map((element) => {
+        if (element?.operation?.type == "EQUAL") {
+          const EQUAL = new EqualOperation(this.context);
+          EQUAL.input = new Input(this.context, element?.operation?.input);
+          return EQUAL.getOutput().getValue();
         }
-        return undefined;
-    }
-}
-
-class EqualOperation extends Operator{
-    __process() {
-        let flag = 0
-        const value = this?.readValue(this?.input?.value[0]?.operation?.input)
-        if(this?.input?.value?.includes(value)){
-            flag = 1
+        if (element?.operation?.type == "LENGTH") {
+          const LENGTH = new LengthOperation(this.context);
+          LENGTH.input = new Input(this.context, element?.operation?.input);
+          console.log(
+            "LENGTH.getOutput().getValue()",
+            LENGTH.getOutput().getValue()
+          );
+          return LENGTH.getOutput().getValue();
         }
-        this.output = new Output(flag);
-        return this;
+      });
+      console.log(
+        "result.includes(0)?false:true",
+        result.includes(0) || result.includes(false) ? false : true
+      );
+      if (this.input.type == "AND") return result.includes(0) || result.includes(false) ? false : true;
+      else if (this.input.type == "OR")
+        return result.includes(1) ? true : false;
     }
-
-
-    readValue(readValue) {
-        const read = new ReadOperation(this.context)
-        read.input = new Input(this.context, readValue)
-        return read.getOutput().getValue()
-    }
+  }
 }
 
-class AndOrOperation extends Operator{
-    __process(){
-        this.output = new Output(this.match(this.input.value))
-        return this
-    }
+class equalReturn extends Operator {
+  __process() {
+    this.output = new Output(this.match(this.input.value));
+    return this;
+  }
 
-    match(input){
-        if(input.length){
-            let result = input.map(element => {
-                if(element?.operation?.type =='EQUAL'){
-                    const EQUAL = new EqualOperation(this.context)
-                    EQUAL.input = new Input(this.context,element?.operation?.input)
-                    return EQUAL.getOutput().getValue()
-                }
-            });
-            if(this.input.type=='AND')return result.includes(0)?false:true
-            else if(this.input.type == 'OR') return result.includes(1)?true:false     
+  match(input) {
+    for (let i = 0; i < input.length; i++) {
+      if (input[i].operation.type == "EQUAL") {
+        const EQUAL = new EqualOperation(this.context);
+        EQUAL.input = new Input(this.context, input[i]?.operation?.input);
+        if (EQUAL.getOutput().getValue()) {
+          return input[i]?.operation?.input.value[2];
         }
-    }
-}
-
-class equalReturn extends Operator{
-    __process(){
-        this.output = new Output(this.match(this.input.value))
-        return this
-    }
-
-    match(input){
-        for(let i = 0 ;i < input.length ; i++){
-            if(input[i].operation.type=="EQUAL"){
-                const EQUAL = new EqualOperation(this.context)
-                EQUAL.input = new Input(this.context,input[i]?.operation?.input)
-                if(EQUAL.getOutput().getValue()){
-                    return input[i]?.operation?.input.value[2]
-                }
-            }else{
-                const GREATERLESSTHAN = new greaterORlessthan(this.context)
-                GREATERLESSTHAN.input = new Input(this.context,input[i]?.operation?.input,input[i].operation.type)
-                if(GREATERLESSTHAN.getOutput().getValue()){
-                    return input[i]?.operation?.input.value[2]
-                }
-            }
+      } else {
+        const GREATERLESSTHAN = new greaterORlessthan(this.context);
+        GREATERLESSTHAN.input = new Input(
+          this.context,
+          input[i]?.operation?.input,
+          input[i].operation.type
+        );
+        if (GREATERLESSTHAN.getOutput().getValue()) {
+          return input[i]?.operation?.input.value[2];
         }
+      }
     }
+  }
 }
 
-class greaterORlessthan extends Operator{
-    __process(){
-        this.output = new Output(this.match(this.input.value))
-        return this
-    }
-    match(){
-        const value = parseInt(this?.readValue(this?.input?.value[0]?.operation?.input))
-        this.input.value[1]=parseInt(this?.input?.value[1])
-        return this.input.type ==="GREATERTHAN"&&value>this?.input?.value[1]?1:this.input.type ==="LESSTHAN"&&value<this?.input?.value[1]?1:0
-    }
-    readValue(readValue) {
-        const read = new ReadOperation(this.context)
-        read.input = new Input(this.context, readValue)
-        return read.getOutput().getValue()
-    }
+class greaterORlessthan extends Operator {
+  __process() {
+    this.output = new Output(this.match(this.input.value));
+    return this;
+  }
+  match() {
+    const value = parseInt(
+      this?.readValue(this?.input?.value[0]?.operation?.input)
+    );
+    this.input.value[1] = parseInt(this?.input?.value[1]);
+    return this.input.type === "GREATERTHAN" && value > this?.input?.value[1]
+      ? 1
+      : this.input.type === "LESSTHAN" && value < this?.input?.value[1]
+      ? 1
+      : 0;
+  }
+  readValue(readValue) {
+    const read = new ReadOperation(this.context);
+    read.input = new Input(this.context, readValue);
+    return read.getOutput().getValue();
+  }
 }
 
-module.exports={GenerateUuidOperation, GenerateTmpstmpOperation, ReadOperation, EqualOperation, AndOrOperation, equalReturn}
+class LengthOperation extends Operator {
+  __process() {
+    console.log("first argument");
+    this.output = new Output(this.checkLength(this.input.value));
+    return this;
+  }
+
+  checkLength() {
+
+    const value = this.readValue(this.input.value[0]?.operation?.input)
+    console.log("🚀 ~ LengthOperation ~ checkLength ~ value:", value)
+    const expectedLength = this.input.value[1];
+    if (Array.isArray(value)) {
+      console.log(
+        "inputArray.length === expectedLength",
+        value.length === expectedLength
+      );
+      console.log('inputArray.length', value.length)
+      console.log('expectedLength', expectedLength)
+      return value.length === expectedLength;
+    }
+    console.log(
+      "inputArray.length === expectedLength",
+      value.length === expectedLength
+    );
+    return false;
+  }
+
+
+
+  readValue(readValue) {
+    const read = new ReadOperation(this.context);
+    read.input = new Input(this.context, readValue);
+    return read.getOutput().getValue();
+  }
+
+}
+
+module.exports = {
+  GenerateUuidOperation,
+  GenerateTmpstmpOperation,
+  ReadOperation,
+  EqualOperation,
+  AndOrOperation,
+  equalReturn,
+  LengthOperation,
+};

@@ -569,6 +569,7 @@ properties:
                     - ITEM
                     - FULFILMENT
                     - TRANSACTION_ID
+                    - TRANSACTION
                     - MESSAGE_ID
                     - PROVIDER
                     - ISSUE

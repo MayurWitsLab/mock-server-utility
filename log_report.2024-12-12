@@ -1,0 +1,84 @@
+[2024-12-12T07:02:08.467Z] [[32minfo[39m]: This app is running on port number : 5500
+[2024-12-12T07:10:39.429Z] [[32minfo[39m]: Received /issue api request
+[2024-12-12T07:10:39.434Z] [[32minfo[39m]: Validating issue request
+[2024-12-12T07:10:39.434Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:10:39.526Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:10:39.526Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:10:39.527Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:10:39.527Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:10:39.527Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:10:39.534Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:10:39.534Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:10:39.536Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:10:39.536Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:10:40.335Z] [[31merror[39m]: Request failed with status code 405
+[2024-12-12T07:10:41.379Z] [[31merror[39m]: Request failed with status code 405
+[2024-12-12T07:10:53.470Z] [[32minfo[39m]: Received /issue api request
+[2024-12-12T07:10:53.472Z] [[32minfo[39m]: Validating issue request
+[2024-12-12T07:10:53.472Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:10:53.473Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:10:53.473Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:10:53.473Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:10:53.473Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:10:53.474Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:10:53.482Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:10:53.482Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:10:53.483Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:10:53.484Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:10:54.430Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:10:54.580Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:15:27.142Z] [[32minfo[39m]: Received /issue api request
+[2024-12-12T07:15:27.144Z] [[32minfo[39m]: Validating issue request
+[2024-12-12T07:15:27.144Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:15:27.144Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:15:27.144Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:15:27.145Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:15:27.145Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:15:27.145Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:15:27.157Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:15:27.157Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:15:27.159Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:15:27.159Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:15:27.935Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:15:28.104Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:16:13.972Z] [[32minfo[39m]: Received /issue api request
+[2024-12-12T07:16:13.974Z] [[32minfo[39m]: Validating issue request
+[2024-12-12T07:16:13.974Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:16:13.974Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:16:13.979Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:16:13.980Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:16:14.592Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:16:50.323Z] [[32minfo[39m]: Received /issue api request
+[2024-12-12T07:16:50.325Z] [[32minfo[39m]: Validating issue request
+[2024-12-12T07:16:50.325Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:16:50.326Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:16:50.326Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:16:50.326Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:16:50.326Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:16:50.326Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:16:50.334Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:16:50.334Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:16:50.335Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:16:50.336Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:16:51.010Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:16:51.181Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:17:18.074Z] [[32minfo[39m]: Received /issue api request
+[2024-12-12T07:17:18.076Z] [[32minfo[39m]: Validating issue request
+[2024-12-12T07:17:18.076Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:17:18.076Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:17:18.076Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:17:18.077Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:17:18.077Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:17:18.077Z] [[32minfo[39m]: Schema validation : SUCCESS
+[2024-12-12T07:17:18.082Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:17:18.083Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:17:18.084Z] [[32minfo[39m]: Callback for this request: on_issue
+[2024-12-12T07:17:18.084Z] [[32minfo[39m]: Inside trigger service
+[2024-12-12T07:17:18.751Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:17:19.031Z] [[31merror[39m]: Request failed with status code 502
+[2024-12-12T07:18:10.959Z] [[32minfo[39m]: Received /issue api request
+[2024-12-12T07:18:10.963Z] [[32minfo[39m]: Validating issue request
+[2024-12-12T07:18:10.963Z] [[32minfo[39m]: Inside schema validation service for issue api
+[2024-12-12T07:18:10.963Z] [[31merror[39m]: {"errors":[{"message":"must be object","details":"/message/issue/actions/10/tags"}],"status":"fail"}
+[2024-12-12T07:18:10.963Z] [[31merror[39m]: Schema validation : FAIL
+[2024-12-12T07:18:10.963Z] [[31merror[39m]: T1

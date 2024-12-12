@@ -50,6 +50,7 @@ const onRequest = async (req, res) => {
         apiConfig: paths[api],
       };
       callbackConfig = dynamicReponse(context)
+      console.log("🚀 ~ onRequest ~ callbackConfig:", callbackConfig)
     } else {
       logger.error("Invalid Request");
       return res.json(invalidNack);

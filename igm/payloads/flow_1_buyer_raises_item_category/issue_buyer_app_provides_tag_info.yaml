@@ -32,6 +32,8 @@ message:
     refs:
     - ref_id: O1
       ref_type: ORDER
+    - ref_id: T1
+      ref_type: TRANSACTION
     - ref_id: P1
       ref_type: PROVIDER
     - ref_id: F1

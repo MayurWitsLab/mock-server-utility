@@ -50,12 +50,21 @@ const validateRequest = async (
   res,
   security,
   server,
-  isFormFound
+  isFormFound,
+  flag
 ) => {
   logger = log.init();
     const {status,error_list} = await validateSchema(context)
   if (isFormFound ||  status) {
-    
+    if(callbackConfig.callbacks){
+      for (let i = 0 ; i < callbackConfig.callbacks.length ; i++){
+        // console.log(i)
+        validateRequest(context,callbackConfig.callbacks[i],res,security,server,isFormFound,i===0?false:true)
+      }
+      console.log("first call to validateSchema")
+      return
+  }
+
     //triggering the subsequent request
     payloadConfig = callbackConfig?.payload;
     if (payloadConfig != null) {
@@ -72,9 +81,11 @@ const validateRequest = async (
           subscriberUniqueKeyId: security.ukId, // Unique Key Id or uKid that you get after registering to ONDC Network
         });
 
-        res.setHeader("Authorization", header);
+        if(!flag){res.setHeader("Authorization", header);}
       }
-      if (callbackConfig.callback === "undefined"|| server.sync_mode) {
+      console.log('payloadConfig', payloadConfig)
+      console.log('data', data)
+      if (callbackConfig.callback === "undefined"|| server.sync_mode  && !flag ) {
         return isFormFound ? res.send(payloadConfig) : res.json(data);
         // return res.json(data);
       } else {
@@ -82,12 +93,12 @@ const validateRequest = async (
         logger.info(`Callback for this request: ${callbackConfig.callback}`);
         trigger(context, callbackConfig, data,security);
       }
-      return res.json(ack);
+      return !flag?res.json(ack):false
     } 
   }
   else {
       schemaNack.error.path = JSON.stringify(error_list)
-      return res.json(schemaNack);
+      return !flag?res.json(schemaNack):false
     }
   }
 

@@ -4,12 +4,146 @@ default:
     $ref: ""
   delay: 300
   payload:
-    $ref: "./template/on_issue.yaml"
+    $ref: "./template/flow_2_seller_raisies_a_complaint_for_policy_issue/on_issue_buyer_app_provides_resolution.yaml"
 
-flow_1_buyer_app_provides_relevant_information:
+
+flow_2_SELLER_APP_RAISES_THE_COMPLAINT_FOR_POLICY_CATEGORY:
+  condition:
+      operation:
+        type: AND
+        input:
+          value:
+          - operation:
+                type: EQUAL
+                title: Check search message code
+                input:
+                  value:
+                    - operation:
+                        type: READ
+                        input:
+                          value: "req_body.message.issue.actions.0.description.code"
+                    - "OPEN"
+          - operation:
+                type: LENGTH
+                title: Check length of actions field
+                input:
+                  value:
+                    - operation:
+                        type: READ
+                        input:
+                          value: "req_body.message.issue.actions"
+                    - 1
+  callbacks:
+    - callback: "on_issue"
+      uri: ""
+      delay: 300
+      payload:
+        $ref: "./template/flow_2_seller_raisies_a_complaint_for_policy_issue/on_issue_buyer_app_responds_with_processing.yaml"
+    - callback: "on_issue"
+      uri: ""
+      delay: 500
+      payload:
+        $ref: "./template/flow_2_seller_raisies_a_complaint_for_policy_issue/on_issue_buyer_app_responds_with_proposed_solution.yaml"
+
+
+
+flow_2_SELLER_APP_ESCALATED_ISSUE:
+  condition:
+      operation:
+        type: AND
+        input:
+          value:
+          - operation:
+                type: EQUAL
+                title: Check search message code
+                input:
+                  value:
+                    - operation:
+                        type: READ
+                        input:
+                          value: "req_body.message.issue.status"
+                    - "OPEN"
+          - operation:
+                type: EQUAL
+                title: Check search message code
+                input:
+                  value:
+                    - operation:
+                        type: READ
+                        input:
+                          value: "req_body.message.issue.actions.5.description.code"
+                    - "ESCALATED"
+
+  callbacks:
+    - callback: "on_issue"
+      uri: ""
+      delay: 300
+      payload:
+        $ref: "./template/flow_2_seller_raisies_a_complaint_for_policy_issue/on_issue_buyer_app_responds_with_processing_escalated.yaml"
+    - callback: "on_issue"
+      uri: ""
+      delay: 500
+      payload:
+        $ref: "./template/flow_2_seller_raisies_a_complaint_for_policy_issue/on_issue_buyer_app_responds_with_proposed_solution.yaml"
+
+
+flow_2_CHECK_IF_DESCRIPTION_CODE_IS_CLOSED:
+  condition:
+      operation:
+        type: AND
+        input:
+          value:
+          - operation:
+                type: EQUAL
+                title: Check search message code
+                input:
+                  value:
+                    - operation:
+                        type: READ
+                        input:
+                          value: "req_body.message.issue.actions.3.description.code"
+                    - "CLOSED"
+
   callback: "on_issue"
   uri:
     $ref: ""
   delay: 300
   payload:
-    $ref: "./template/on_issue.yaml"
+    $ref: ""
+
+
+flow_2_ISSUE_SELLER_APP_ACCEPTS_THE_RESOLUTION:
+  condition:
+      operation:
+        type: AND
+        input:
+          value:
+          - operation:
+                type: EQUAL
+                title: Check search message code
+                input:
+                  value:
+                    - operation:
+                        type: READ
+                        input:
+                          value: "req_body.message.issue.status"
+                    - "OPEN"
+          - operation:
+                type: EQUAL
+                title: Check search message code
+                input:
+                  value:
+                    - operation:
+                        type: READ
+                        input:
+                          value: "req_body.message.issue.resolutions.0.descriptor.code"
+                    - "NOW-VISIBLE"
+
+  callback: "on_issue"
+  uri:
+    $ref: ""
+  delay: 300
+  payload:
+    $ref: "./template/flow_2_seller_raisies_a_complaint_for_policy_issue/on_issue_buyer_app_provides_resolution.yaml"
+
+

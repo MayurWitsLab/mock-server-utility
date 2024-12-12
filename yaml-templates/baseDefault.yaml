@@ -5,3 +5,4 @@ default:
   delay: 300
   payload:
     $ref: "{{payload}}"
+    $ref2: "{{payload}}"
